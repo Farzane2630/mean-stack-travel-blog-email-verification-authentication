@@ -18,4 +18,11 @@ export class SavesComponent implements OnInit {
       .getUser()
       .subscribe((res: any) => (this.savedPosts = res.user.savedPosts));
   }
+
+  // savebtn() {
+  //  this.authService
+  //    .getUser()
+  //    .subscribe((res: any) => (this.savedPosts = res.user.savedPosts));
+
+  // }
 }

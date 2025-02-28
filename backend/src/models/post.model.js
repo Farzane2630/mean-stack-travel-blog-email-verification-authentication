@@ -34,8 +34,16 @@ const postSchema = new mongoose.Schema({
   },
   comments: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
+      _id: String,
+      likes: Number,
+      dislikes: Number,
+      replys: [],
+      publishDate: {
+        type: Date,
+        default: Date.now,
+      },
+      body: String,
+      writer: String,
     },
   ],
   likes: {

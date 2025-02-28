@@ -40,6 +40,10 @@ userSchema = new mongoose.Schema(
       type: [],
       default: [],
     },
+    likedPosts: {
+      type: [],
+      default: [],
+    },
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
     verificationToken: String,

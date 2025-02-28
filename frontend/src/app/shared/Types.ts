@@ -7,7 +7,7 @@ export interface Article {
   category: string;
   publishDate?: string;
   lastUpdate?: string;
-  comments?: string[] | Comment[];
+  comments?: Comment[];
   likes?: number;
   readingTime: string;
   posts?: Article[];
@@ -20,16 +20,20 @@ export interface User {
   mobile?: string | null | undefined;
   password: string | null | undefined;
   avatar?: string;
+  savedPosts?: Article[];
+  likedPosts?: Article[];
+  comments?: Comment[];
+  replies?: Reply[];
 }
 
 export interface Comment {
-  id?: string | null | undefined;
-  articleId: string;
-  userId: string;
-  comment: string;
-  date: string;
+  _id?: string ;
   likes: number;
-  replys: Reply[];
+  dislikes: number;
+  replys: Comment[];
+  publishDate: Date;
+  body: string;
+  writer: string;
 }
 
 export interface Reply {

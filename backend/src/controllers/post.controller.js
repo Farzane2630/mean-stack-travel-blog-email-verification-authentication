@@ -214,16 +214,53 @@ const answerComment = async (req, res) => {
 
 const likePost = async (req, res) => {
   const postId = req.params.postId;
+  const userId = req.userId;
+
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
   try {
     const post = await Post.findById(postId);
     if (!post) {
       throw new Error("Post not Found!");
     }
-    post.likes = post.likes + 1;
 
-    await post.save();
+    console.log(user.likedPosts);
 
-    res.status(200).json({ success: true, message: "Liked ;)", post });
+    // Check if the post is already liked
+    const isPostLiked = user.likedPosts.find(
+      (post) => post._id.toString() === postId
+    );
+
+    if (isPostLiked) {
+      post.likes = post.likes > 1 ? post.likes - 1 : 0;
+      user.likedPosts = user.likedPosts.filter((post) => post._id != postId);
+
+      console.log(user.likedPosts);
+      console.log(post.likes);
+
+      await post.save();
+      await user.save();
+
+      return res
+        .status(200)
+        .json({ success: true, message: "Post is unliked!" });
+    } else {
+      // Add the post to the user's likedPosts
+      user.likedPosts = [...user.likedPosts, post];
+      post.likes = post.likes + 1;
+
+      console.log(user.likedPosts);
+      console.log(post.likes);
+
+      await user.save();
+      await post.save();
+
+      res.status(200).json({ success: true, message: "Liked ;)", post });
+    }
   } catch (error) {
     console.log("Error in like post", error);
 

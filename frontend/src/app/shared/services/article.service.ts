@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { Article } from "../Types";
+import { Article, Comment } from "../Types";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -35,11 +35,36 @@ export class ArticleService {
     });
   }
 
+  likeArticle(postId: string | undefined) {
+    return this.http.post(`${this.api_url}/posts/like-post/${postId}`, null, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Bearer token
+      },
+    });
+  }
+
   deleteArticle(postId: string | undefined) {
     return this.http.delete(`${this.api_url}/posts/delete-post/${postId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
+  }
+
+  addComment({
+  postId, comment
+}: {
+  postId: string | undefined;
+  comment: Comment;
+}) {
+    return this.http.post(
+      `${this.api_url}/posts/add-comment/${postId}`,
+      comment,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
   }
 }
