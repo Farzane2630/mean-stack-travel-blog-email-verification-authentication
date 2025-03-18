@@ -96,8 +96,8 @@
     <button
       type="submit"
       class="register__button"
-      [style]="registerForm.invalid ? 'opacity: 0.5' : ''"
-      [disabled]="registerForm.invalid"
+      [style]="!registerForm.invalid ? 'opacity: 0.5' : ''"
+      [disabled]="!registerForm.invalid"
     >
       @if (isLoading) {
         loading ...

@@ -10,6 +10,7 @@ import { User } from "../../shared/Types";
 import { LogoComponent } from "../../shared/components/logo/logo.component";
 
 import { AuthService } from "../services/auth.service";
+import { log } from "console";
 
 @Component({
   selector: "app-register",
@@ -34,7 +35,7 @@ export class RegisterComponent {
     password: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
-      this.strongPassword
+      this.strongPassword,
     ]),
   });
 
@@ -56,22 +57,21 @@ export class RegisterComponent {
 
   register() {
     this.isLoading = true;
-    if (this.registerForm.valid) {
-      const userInfo: User = this.registerForm.value;
+    const userInfo = this.registerForm.value;
 
-      this.authService.registerUser(userInfo).subscribe({
-        next: (res) => {
-          // console.log(res.user);
+    this.authService.registerUser(userInfo).subscribe({
+      next: (res) => {
+        // console.log(res);
 
-          alert(res.message);
-          this.router.navigate(["/auth/verify-email"]);
-          this.isLoading = false;
-        },
-        error: (err) => {
-          this.isLoading = false;
-          alert(err.error.message);
-        },
-      });
-    }
+        alert(res.message);
+        this.router.navigate(["auth/verify-email"]);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        // console.log(err.error.message);
+        alert(err.error.message);
+      },
+    });
   }
 }
