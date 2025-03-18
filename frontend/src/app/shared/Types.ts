@@ -24,6 +24,7 @@ export interface User {
   likedPosts?: Article[];
   comments?: Comment[];
   replies?: Reply[];
+  posts:[]
 }
 
 export interface Comment {
