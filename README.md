@@ -1,6 +1,6 @@
-# mean-stack-Form-email
+# mean-stack-App
 
- ## 🚀 In this project I implement a register/login form which has bellow features:
+ ## 🚀 In this project I implement a travelblog with register/login forms which has bellow features:
 
 🔐 Signup Endpoint
 
@@ -20,7 +20,7 @@
 
 ✔️ Check Auth Endpoint
 
-🌐 Frontend Setup
+**🌐 Frontend Setup**
 
 📋 Signup Page UI
 
