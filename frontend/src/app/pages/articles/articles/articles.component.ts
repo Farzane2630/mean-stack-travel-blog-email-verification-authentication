@@ -2,15 +2,18 @@ import { Component, OnInit } from "@angular/core";
 import { ArticleService } from "../../../shared/services/article.service";
 import { Article } from "../../../shared/Types";
 import { ArticleCardComponent } from "../../../components/home/stories-n-news/article-card/article-card.component";
+import { environment } from "../../../../environments/environment";
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: "app-articles",
-  imports: [ArticleCardComponent],
+  imports: [ArticleCardComponent, NgxSkeletonLoaderModule],
   templateUrl: "./articles.component.html",
   // styleUrl: "./all-articles.component.scss",
 })
 export class ArticlesComponent implements OnInit {
   articles!: Article[];
+  env = environment.IMAGE_BASE_URL;
   constructor(private articleService: ArticleService) {}
 
   ngOnInit() {

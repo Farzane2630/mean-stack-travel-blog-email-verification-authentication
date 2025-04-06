@@ -1,25 +1,69 @@
-<div
-  class="flex flex-col lg:px-48 px-4 py-8 justify-center items-center relative"
->
-  <p class="font-extrabold text-4xl text-center py-8">{{ blog.title }}</p>
-  <div class="flex justify-start items-center gap-x-4 mb-8">
-    <img
-      [ngSrc]="
-        env + '/' + user.avatar ||
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhWdTnmHCBRfMu359x_TmhZRbvGSTS83quuw&s'
-      "
-      width="50"
-      height="50"
-      class="rounded-full"
-      alt="user-avatar"
-      loading="lazy"
-    />
-    <div class="flex flex-col items-center">
-       <p>{{ blog.author }}</p>
-       <p>{{ blog.publishDate | date }}</p>
-
+@defer {
+  <div
+    class="flex flex-col lg:px-48 px-4 py-8 justify-center items-center relative"
+  >
+    <p class="font-extrabold text-4xl text-center py-8">{{ blog.title }}</p>
+    <div class="flex justify-start items-center gap-x-4 mb-8">
+      <img
+        [ngSrc]="
+          env + '/' + user.avatar ||
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhWdTnmHCBRfMu359x_TmhZRbvGSTS83quuw&s'
+        "
+        width="50"
+        height="50"
+        class="rounded-full"
+        alt="user-avatar"
+        loading="lazy"
+      />
+      <div class="flex flex-col items-center">
+        <p>{{ blog.author }}</p>
+        <p>{{ blog.publishDate | date }}</p>
       </div>
+      <div class="flex flex-col items-start justify-start">
+        <div class="flex gap-x-2">
+          <button id="like-icon" (click)="likeBtnHandler(blog._id)">
+            @if (isLiking) {
+              <app-loading></app-loading>
+            } @else {
+              <i [class]="(blog.likes === 0) ? 'fa-regular fa-heart' : 'fa-solid fa-heart'"></i>
+            }
+          </button>
+          <p>{{ blog.likes }}</p>
+        </div>
+        <button id="save-icon" (click)="saveBtnHandler(blog._id)">
+          @if (isSaving) {
+            <app-loading></app-loading>
+          } @else {
+            <i
+              [class]="!isSaved ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"
+            ></i>
+          }
+        </button>
+      </div>
+    </div>
+    <img [ngSrc]="imageUrl" [alt]="blog.title" width="800" height="500" />
+    <div [innerHTML]="blog.body"></div>
+
+    <p class="text-lg font-semibold text-left">Comments:</p>
+    @if (!blog.comments?.length) {
+      <p>No comment has been written yet.</p>
+      <button (click)="showCommentModal(blog._id)">Write a comment</button>
+    } @else {
+      @for (comment of blog.comments; track comment._id) {
+        <app-comment [comment]="comment" />
+      }
+    }
+
+    <app-comment-modal
+      [blog]="blog"
+      (onSubmit)="
+        submitComment({ id: blog._id || '', comment: $event.comment })
+      "
+      [displayStyle]="commentModalStyle"
+    />
   </div>
-  <img [ngSrc]="imageUrl" [alt]="blog.title" width="800" height="500" />
-  <div [innerHTML]="blog.body"></div>
-</div>
+} @placeholder {
+  <p class="text-xl font-bold text-blue-700 text-center">
+    Blog Content is loading ...
+  </p>
+}

@@ -2,9 +2,19 @@
   <p class="text-center font-extrabold text-lg text-blue-500">
     Travel Articles
   </p>
+  @defer {
   <div class="max-w-[1500px] flex flex-col items-stretch px-12 gap-y-4">
+   
     @for (article of articles; track article._id) {
       <app-article-card [article]="article" />
     }
   </div>
+} @placeholder {
+  <ngx-skeleton-loader [theme]="{height: '50px', background: 'red'}" />
+  <ngx-skeleton-loader [theme]="{height: '50px', background: 'red'}" />
+  <ngx-skeleton-loader [theme]="{height: '50px', background: 'red'}" />
+  <ngx-skeleton-loader [theme]="{height: '50px', background: 'red'}" />
+  <ngx-skeleton-loader [theme]="{height: '50px', background: 'red'}" />
+  
+}
 </div>

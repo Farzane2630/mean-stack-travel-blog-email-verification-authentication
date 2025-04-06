@@ -29,14 +29,15 @@ export class ArticleCardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
-    this.authService.getUser().subscribe((res) => {
-      this.savedPosts = res.user.savedPosts;
-      if (
-        this.savedPosts.find((post: Article) => post._id === this.article._id)
-      ) {
-        this.isSaved = true;
-      }
-    });
+    
+    // this.authService.getUser().subscribe((res) => {
+    //   this.savedPosts = res.user.savedPosts;
+    //   if (
+    //     this.savedPosts.find((post: Article) => post._id === this.article._id)
+    //   ) {
+    //     this.isSaved = true;
+    //   }
+    // });
 
     if (!this.article.image.includes("https")) {
       this.imageUrl = `${this.env}/${this.article.image}`;

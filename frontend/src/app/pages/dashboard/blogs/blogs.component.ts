@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import { BlogCardComponent } from "../../../components/dashboard/blogs/blog-card/blog-card.component";
 import { SampleBtnComponent } from "../../../shared/components/btns/sample-btn/sample-btn.component";
 import { AddBlogComponent } from "../../../components/dashboard/blogs/add-blog/add-blog.component";
@@ -25,7 +25,7 @@ export class BlogsComponent implements OnInit {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
+  fetchBlogs() {
     this.authService.getUser().subscribe((res: any) => {
       this.blogs = res.user.posts;
 
@@ -34,5 +34,16 @@ export class BlogsComponent implements OnInit {
         (blog: Article) => (blog.image = `${this.environment}/${blog.image}`)
       );
     });
+  }
+  ngOnInit(): void {
+    this.fetchBlogs();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["blogs"]) {
+      this.fetchBlogs();
+      console.log("changes");
+      
+    }
   }
 }

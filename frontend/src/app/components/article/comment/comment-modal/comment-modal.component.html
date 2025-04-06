@@ -1,0 +1,9 @@
+<div [style]="displayStyle">
+  <input type="text" [(ngModel)]="comment" />
+  <hr />
+  <app-sample-btn
+    title="Submit"
+    (clickHandler)="submitComment()"
+    [hasRoute]="false"
+  />
+</div>

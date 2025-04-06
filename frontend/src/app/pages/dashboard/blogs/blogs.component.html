@@ -1,4 +1,4 @@
-<div id="main" class="relative flex flex-col p-4 gap-y-4">
+<div class="flex flex-wrap flex-col p-4 gap-y-4">
   <!-- <div class="flex flex-col md:flex-row justify-between items-center">
       <h1 class="text-2xl font-bold">Blogs</h1>
       <div class="flex gap-x-4">
@@ -7,7 +7,10 @@
          <app-sample-btn title="draft" customClass="text-white bg-blue-500"></app-sample-btn>
       </div>
       </div> -->
-  <app-add-blog [style]="addBlogModalStyle" (clickHandler)="closeModal()"></app-add-blog>
+  <app-add-blog
+    [style]="addBlogModalStyle"
+    (clickHandler)="closeModal()"
+  ></app-add-blog>
   <app-sample-btn
     title="write a new blog"
     customClass="text-white bg-blue-500 hover:text-white ms-4"
@@ -15,12 +18,13 @@
     [hasRoute]="false"
   ></app-sample-btn>
 
-  <div class="flex flex-col md:flex-row px-4 gap-y-4 md:gap-x-4 md:gap-y-0">
-    @if(blogs.length){
-      @for(blog of blogs; track blog._id){
+  <div
+    class="flex flex-col sm:flex-row justify-center items-center px-4 gap-y-4 md:gap-x-4 md:gap-y-0"
+  >
+    @if (blogs.length) {
+      @for (blog of blogs; track blog._id) {
         <app-blog-card [blog]="blog"></app-blog-card>
       }
     }
-   
   </div>
 </div>
