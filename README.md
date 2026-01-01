@@ -83,6 +83,17 @@ You do **not** need Node.js, npm, or MongoDB installed locally — everything ru
 
 ---
 
+## shallow clone (quick + effective)
+
+If you don’t need full history:
+```
+git clone --depth=1 https://github.com/Farzane2630/mean-stack-travel-blog-email-verification-authentication.git
+
+```
+This dramatically reduces data transfer.
+
+---
+
 ## Project Structure
 
 Your project should have a structure similar to this:
