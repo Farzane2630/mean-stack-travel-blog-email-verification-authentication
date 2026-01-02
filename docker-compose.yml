@@ -6,20 +6,15 @@ services:
     volumes:
       - ./backend:/src/app
       - /app/node_modules
-    depends_on:
-      - mongo
+    env_file:
+      - ./backend/.env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 0.0.0.0
     ports:
       - 5000:5000
     command: npm run dev
-  mongo:
-    image: mongo:latest
-    container_name: mongoDB
-    ports:
-      - 7017:27017
-    volumes:
-      - mongo_data:/data/db
-    environment:
-      - MONGO_URI
   frontend:
     image: node:20
     depends_on:
@@ -32,5 +27,4 @@ services:
       - /app/node_modules
     ports:
       - 4200:4200
-volumes:
-  mongo_data:
+

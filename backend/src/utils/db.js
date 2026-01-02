@@ -9,5 +9,6 @@ const connectToDB = async () => {
     process.exit(1); // 1 is failure, 0 status code is success
   }
 };
+console.log("Mongo URI exists:", !!process.env.MONGODB_URI);
 
 module.exports = connectToDB;
