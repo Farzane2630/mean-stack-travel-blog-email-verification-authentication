@@ -10,7 +10,14 @@ const postRoutes = require("./routes/post.route");
 const app = express();
 
 // Set Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://travelhub-git-master-farzane2630s-projects.vercel.app/"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true
+}));
+app.options("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/images", express.static("images"));
